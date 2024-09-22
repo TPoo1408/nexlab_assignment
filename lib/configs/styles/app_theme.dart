@@ -1,10 +1,10 @@
-
 import 'package:flutter/material.dart';
 import 'package:nexlab_assignment/configs/styles/app_color.dart';
 
 class AppTheme {
+  // Base Theme
   static const _fontFamily = "Roboto";
-  static const _primaryColor = Color(0xFF1E88E5);
+  static const _primaryColor = AppColor.primaryColor;
   static const _appBarTheme = AppBarTheme(
     backgroundColor: Colors.transparent,
     foregroundColor: Colors.black,
@@ -15,24 +15,26 @@ class AppTheme {
       backgroundColor: WidgetStatePropertyAll(Colors.white),
       elevation: WidgetStatePropertyAll(0),
     ),
-    
   );
 
-  // light theme
+  // Light Theme
   static final lightTheme = ThemeData(
     fontFamily: _fontFamily,
     primaryColor: _primaryColor,
     appBarTheme: _appBarTheme,
     elevatedButtonTheme: _elevatedButtonTheme,
     scaffoldBackgroundColor: Colors.white,
-     inputDecorationTheme: InputDecorationTheme(
+    textSelectionTheme: const TextSelectionThemeData(
+      cursorColor: _primaryColor,
+    ),
+    inputDecorationTheme: InputDecorationTheme(
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8),
         borderSide: const BorderSide(color: AppColor.greyBorder),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8),
-        borderSide: const BorderSide(color: AppColor.redBold),
+        borderSide: const BorderSide(color: _primaryColor),
       ),
     ),
   );

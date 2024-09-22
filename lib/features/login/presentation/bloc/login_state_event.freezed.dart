@@ -619,43 +619,42 @@ abstract class LoginSuccessState implements LoginState {
 
 /// @nodoc
 mixin _$LoginEvent {
+  String get phoneNumber => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() init,
     required TResult Function(String phoneNumber) login,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? init,
     TResult? Function(String phoneNumber)? login,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? init,
     TResult Function(String phoneNumber)? login,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(InitEvent value) init,
     required TResult Function(OnLoginEvent value) login,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(InitEvent value)? init,
     TResult? Function(OnLoginEvent value)? login,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(InitEvent value)? init,
     TResult Function(OnLoginEvent value)? login,
     required TResult orElse(),
   }) =>
+      throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $LoginEventCopyWith<LoginEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -664,6 +663,8 @@ abstract class $LoginEventCopyWith<$Res> {
   factory $LoginEventCopyWith(
           LoginEvent value, $Res Function(LoginEvent) then) =
       _$LoginEventCopyWithImpl<$Res, LoginEvent>;
+  @useResult
+  $Res call({String phoneNumber});
 }
 
 /// @nodoc
@@ -675,115 +676,28 @@ class _$LoginEventCopyWithImpl<$Res, $Val extends LoginEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? phoneNumber = null,
+  }) {
+    return _then(_value.copyWith(
+      phoneNumber: null == phoneNumber
+          ? _value.phoneNumber
+          : phoneNumber // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
 }
 
 /// @nodoc
-abstract class _$$InitEventImplCopyWith<$Res> {
-  factory _$$InitEventImplCopyWith(
-          _$InitEventImpl value, $Res Function(_$InitEventImpl) then) =
-      __$$InitEventImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$InitEventImplCopyWithImpl<$Res>
-    extends _$LoginEventCopyWithImpl<$Res, _$InitEventImpl>
-    implements _$$InitEventImplCopyWith<$Res> {
-  __$$InitEventImplCopyWithImpl(
-      _$InitEventImpl _value, $Res Function(_$InitEventImpl) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$InitEventImpl implements InitEvent {
-  const _$InitEventImpl();
-
-  @override
-  String toString() {
-    return 'LoginEvent.init()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$InitEventImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() init,
-    required TResult Function(String phoneNumber) login,
-  }) {
-    return init();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? init,
-    TResult? Function(String phoneNumber)? login,
-  }) {
-    return init?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? init,
-    TResult Function(String phoneNumber)? login,
-    required TResult orElse(),
-  }) {
-    if (init != null) {
-      return init();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(InitEvent value) init,
-    required TResult Function(OnLoginEvent value) login,
-  }) {
-    return init(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(InitEvent value)? init,
-    TResult? Function(OnLoginEvent value)? login,
-  }) {
-    return init?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(InitEvent value)? init,
-    TResult Function(OnLoginEvent value)? login,
-    required TResult orElse(),
-  }) {
-    if (init != null) {
-      return init(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class InitEvent implements LoginEvent {
-  const factory InitEvent() = _$InitEventImpl;
-}
-
-/// @nodoc
-abstract class _$$OnLoginEventImplCopyWith<$Res> {
+abstract class _$$OnLoginEventImplCopyWith<$Res>
+    implements $LoginEventCopyWith<$Res> {
   factory _$$OnLoginEventImplCopyWith(
           _$OnLoginEventImpl value, $Res Function(_$OnLoginEventImpl) then) =
       __$$OnLoginEventImplCopyWithImpl<$Res>;
+  @override
   @useResult
   $Res call({String phoneNumber});
 }
@@ -844,7 +758,6 @@ class _$OnLoginEventImpl implements OnLoginEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() init,
     required TResult Function(String phoneNumber) login,
   }) {
     return login(phoneNumber);
@@ -853,7 +766,6 @@ class _$OnLoginEventImpl implements OnLoginEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? init,
     TResult? Function(String phoneNumber)? login,
   }) {
     return login?.call(phoneNumber);
@@ -862,7 +774,6 @@ class _$OnLoginEventImpl implements OnLoginEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? init,
     TResult Function(String phoneNumber)? login,
     required TResult orElse(),
   }) {
@@ -875,7 +786,6 @@ class _$OnLoginEventImpl implements OnLoginEvent {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(InitEvent value) init,
     required TResult Function(OnLoginEvent value) login,
   }) {
     return login(this);
@@ -884,7 +794,6 @@ class _$OnLoginEventImpl implements OnLoginEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(InitEvent value)? init,
     TResult? Function(OnLoginEvent value)? login,
   }) {
     return login?.call(this);
@@ -893,7 +802,6 @@ class _$OnLoginEventImpl implements OnLoginEvent {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(InitEvent value)? init,
     TResult Function(OnLoginEvent value)? login,
     required TResult orElse(),
   }) {
@@ -907,7 +815,9 @@ class _$OnLoginEventImpl implements OnLoginEvent {
 abstract class OnLoginEvent implements LoginEvent {
   const factory OnLoginEvent(final String phoneNumber) = _$OnLoginEventImpl;
 
+  @override
   String get phoneNumber;
+  @override
   @JsonKey(ignore: true)
   _$$OnLoginEventImplCopyWith<_$OnLoginEventImpl> get copyWith =>
       throw _privateConstructorUsedError;

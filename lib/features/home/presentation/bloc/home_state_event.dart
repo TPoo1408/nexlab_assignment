@@ -6,6 +6,7 @@ part 'home_state_event.freezed.dart';
 
 @Freezed(equal: true)
 class HomeState with _$HomeState {
+
   const factory HomeState.initial() = HomeInitialState;
 
   const factory HomeState.loading() = HomeLoadingState;
@@ -16,6 +17,7 @@ class HomeState with _$HomeState {
 
 @freezed
 class HomeEvent with _$HomeEvent {
+  
   const factory HomeEvent.init(UsersModel user) = InitEvent;
 
   const factory HomeEvent.deleteContact(ContactUserModel contact) = DeleteContactEvent;

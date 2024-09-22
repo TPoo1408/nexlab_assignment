@@ -14,13 +14,13 @@ class AppRoute {
       case splashScreen:
         return _getPageRoute(const SplashScreen());
       case loginScreen:
-        return _getPageRoute(LoginScreen());
+        return _getPageRoute(const LoginScreen());
       case homeScreen:
         final args = settings.arguments as Map<String, dynamic>?;
         final isUserModel = args?['isUserModel'] as UsersModel;
         return _getPageRoute(HomeScreen(user: isUserModel), settings: settings);
 
-      ///
+      /// Default Page
       default:
         return _getPageRoute(
           const Scaffold(

@@ -6,23 +6,37 @@ import 'package:nexlab_assignment/configs/styles/app_color.dart';
 import 'package:nexlab_assignment/configs/styles/app_style.dart';
 import 'package:nexlab_assignment/features/login/presentation/bloc/login_bloc.dart';
 import 'package:nexlab_assignment/features/login/presentation/bloc/login_state_event.dart';
-import 'package:nexlab_assignment/features/splash/presentation/widgets/m_text_field.dart';
+import 'package:nexlab_assignment/shared/presentation/widgets/m_text_field.dart';
 import 'package:nexlab_assignment/utils/navigator/navigator_util.dart';
 
-class LoginScreen extends StatelessWidget {
-  LoginScreen({super.key});
-  final _bloc = getIt<LoginBloc>();
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+
   final phoneController = TextEditingController();
 
   @override
+  void dispose() {
+    phoneController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    // Get height device
     final sizeHeightDevice = MediaQuery.of(context).size.height;
 
     return BlocProvider(
-      create: (context) => _bloc,
+      create: (context) => LoginBloc(getIt()),
       child: Scaffold(
         body: BlocListener<LoginBloc, LoginState>(
           listener: (context, state) {
+            // Check state to navigate
             if (state is LoginSuccessState) {
               NavigatorUtil.pushNamedAndRemoveUntil(
                   route: AppRoute.homeScreen,
@@ -35,38 +49,53 @@ class LoginScreen extends StatelessWidget {
               );
             }
           },
-          child: BlocBuilder<LoginBloc, LoginState>(
-            builder: (context, state) {
-              return SingleChildScrollView(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: sizeHeightDevice * 0.1),
-                    Text(
-                      "Hello,",
-                      style: AppStyle.boldStyle(fontSize: 24),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      "Sign in the app with test phone number",
-                      style: AppStyle.regularStyle(fontSize: 16),
-                    ),
-                    SizedBox(height: sizeHeightDevice * 0.2),
-                    MTextField(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                
+                SizedBox(height: sizeHeightDevice * 0.1),
+
+                Text(
+                  "Hello,",
+                  style: AppStyle.boldStyle(fontSize: 24),
+                ),
+
+                const SizedBox(height: 8),
+
+                Text(
+                  "Sign in with test phone number to use app",
+                  style: AppStyle.regularStyle(fontSize: 16),
+                ),
+
+                SizedBox(height: sizeHeightDevice * 0.2),
+
+                // Login Field
+                BlocBuilder<LoginBloc, LoginState>(
+                  builder: (context, state) {
+                    return MTextField(
                       controller: phoneController,
                       hintText: "Number phone",
                       keyboardType: TextInputType.number,
                       maxLines: 1,
                       readOnly: state is LoginLoadingState,
-                    ),
-                    const SizedBox(height: 10),
-                    GestureDetector(
+                    );
+                  },
+                ),
+
+                const SizedBox(height: 10),
+
+                // Login Button
+                BlocBuilder<LoginBloc, LoginState>(
+                  builder: (context, state) {
+                    return GestureDetector(
                       onTap: () {
                         state is! LoginLoadingState
-                            ? _bloc.add(OnLoginEvent(phoneController.text))
+                            ? context
+                                .read<LoginBloc>()
+                                .add(OnLoginEvent(phoneController.text))
                             : null;
                       },
                       child: Container(
@@ -76,7 +105,7 @@ class LoginScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(8),
                             border: Border.all(
                                 color: AppColor.greyBorder, width: 1),
-                            color: AppColor.redBold),
+                            color: AppColor.primaryColor),
                         padding: const EdgeInsets.symmetric(
                             horizontal: 15, vertical: 8),
                         child: state is LoginLoadingState
@@ -91,17 +120,18 @@ class LoginScreen extends StatelessWidget {
                                 ),
                               )
                             : Text(
-                                "Đăng nhập",
+                                "LOGIN",
                                 style: AppStyle.regularStyle(
                                     fontSize: 16, color: Colors.white),
                               ),
                       ),
-                    ),
-                    SizedBox(height: sizeHeightDevice * 0.3),
-                  ],
+                    );
+                  },
                 ),
-              );
-            },
+
+                SizedBox(height: sizeHeightDevice * 0.3),
+              ],
+            ),
           ),
         ),
       ),

@@ -1,16 +1,41 @@
-# nexlab_assignment
+# Nexlab_assignment
 
-A new Flutter project.
 
-## Getting Started
+## Information Project
+- Flutter version: 3.22.3
+- Dart version: 3.4.4
+- Architecture: Clean Architecture using BLoC
 
-This project is a starting point for a Flutter application.
+## Features
+- Login/Logout
+- Delete contact
+- Update/Add contact
 
-A few resources to get you started if this is your first Flutter project:
+## Run this project
+1. Clone the repository:
+```bash
+git clone https://github.com/TPoo1408/nexlab_assignment
+```
+2. Change to the project directory:
+```bash
+cd nexlab_assignment
+```
+3. Install the dependencies:
+```bash
+flutter pub get
+```
+4. Run the build runner command
+```bash
+flutter pub run build_runner build --delete-conflicting-outputs
+```
+5. Run the project
+```bash
+flutter run
+```
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Mock data to Login
+- 0123456789
+- 0123456790
+- 0123456791
+- 0123456792
+- 0123456793

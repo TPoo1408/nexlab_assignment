@@ -38,7 +38,7 @@ class MTextField extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         if (labelText != null) Text(labelText!, style: AppStyle.regularStyle()),
-        const SizedBox(height: 8),
+        if (labelText != null) const SizedBox(height: 8),
         TextField(
           textInputAction: textInputAction,
           minLines: minLines,

@@ -18,7 +18,7 @@ class LoginState with _$LoginState {
 
 @freezed
 class LoginEvent with _$LoginEvent {
-  const factory LoginEvent.init() = InitEvent;
 
   const factory LoginEvent.login(String phoneNumber) = OnLoginEvent;
+  
 }

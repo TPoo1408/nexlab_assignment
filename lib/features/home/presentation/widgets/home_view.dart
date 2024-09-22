@@ -13,6 +13,8 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
+      // Floating Action Button to Add new Contact
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColor.blueBackground,
         onPressed: () {
@@ -20,8 +22,11 @@ class HomeView extends StatelessWidget {
         },
         child: const Icon(Icons.add),
       ),
+      
       body: BlocListener<HomeBloc, HomeState>(
         listener: (context, state) {
+
+          // Show message error
           if (state is HomeLoadedState && state.message != null) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
@@ -34,6 +39,8 @@ class HomeView extends StatelessWidget {
           children: [
             CustomScrollView(
               slivers: [
+
+                // App Bar
                 SliverAppBar(
                   backgroundColor: Colors.white,
                   expandedHeight: 100.0,
@@ -48,9 +55,14 @@ class HomeView extends StatelessWidget {
                     ),
                   ),
                 ),
+
+                // List Contacts
                 const ListContactWidget(),
+                
               ],
             ),
+
+            // Logout Button
             Positioned(
               top: 16,
               right: 8,

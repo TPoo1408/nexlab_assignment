@@ -11,7 +11,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       /// global keys
       navigatorKey: navigatorKey,
-      scaffoldMessengerKey: scaffoldMessengerKey,
 
       /// theme data
       theme: AppTheme.lightTheme,

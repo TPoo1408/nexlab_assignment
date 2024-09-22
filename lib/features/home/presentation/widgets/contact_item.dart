@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nexlab_assignment/configs/di/injection.dart';
 import 'package:nexlab_assignment/configs/styles/app_color.dart';
 import 'package:nexlab_assignment/configs/styles/app_style.dart';
 import 'package:nexlab_assignment/features/home/presentation/bloc/home_bloc.dart';
@@ -14,23 +13,34 @@ import 'package:url_launcher/url_launcher_string.dart';
 class ContactItem extends StatelessWidget {
   const ContactItem({super.key, required this.contact});
   final ContactUserModel contact;
+
   @override
   Widget build(BuildContext context) {
     return Dismissible(
       key: Key(contact.phoneNumber.toString()),
-      background: slideRightBackground(),
-      secondaryBackground: slideLeftBackground(),
+      background: _slideRightBackground(),
+      secondaryBackground: _slideLeftBackground(),
       confirmDismiss: (direction) async {
+
+        // Swipe from right to left to delete contact
         if (direction == DismissDirection.endToStart) {
-          // Delete contact
+
+          // Cofirm delete contact Dialog
           showDialog(
             context: context,
             builder: (ctx) {
-              return ConfirmDeleteContact(contact: contact, parentContext: context,);
+              return ConfirmDeleteContact(
+                contact: contact,
+                parentContext: context,
+              );
             },
           );
-        } else if (direction == DismissDirection.startToEnd) {
-          // Edit contact
+        }
+        
+        // Swipe from left to right to edit contact
+        else if (direction == DismissDirection.startToEnd) {
+
+          // Edit contact bottom sheet
           showModalBottomSheet(
             context: context,
             builder: (_) {
@@ -39,7 +49,8 @@ class ContactItem extends StatelessWidget {
                 name: contact.name,
                 phoneNumber: contact.phoneNumber,
                 onPressSaveButton: (newContact) {
-                  context.read<HomeBloc>()
+                  context
+                      .read<HomeBloc>()
                       .add(UpdateContactEvent(contact, newContact));
                 },
               );
@@ -53,7 +64,7 @@ class ContactItem extends StatelessWidget {
       child: InkWell(
         borderRadius: BorderRadius.circular(8),
         onTap: () {
-          // Open default Call app with phone number
+          // Open Default Calling app with phone number
           launchUrlString("tel:${contact.phoneNumber}");
         },
         child: Container(
@@ -65,15 +76,20 @@ class ContactItem extends StatelessWidget {
           ),
           child: Row(
             children: [
+              
+              // Avatar with Abbreviate name
               CircleAvatar(
                 backgroundColor: RandomColorUtil.randomColor(),
                 radius: 20,
                 child: Text(
-                  getAbbreviateName(contact.name ?? ""),
+                  _getAbbreviateName(contact.name ?? ""),
                   style: AppStyle.boldStyle(color: Colors.white),
                 ),
               ),
+
               const SizedBox(width: 8),
+
+              // Contact name and phone number
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -93,7 +109,9 @@ class ContactItem extends StatelessWidget {
                   ],
                 ),
               ),
+
               const SizedBox(width: 8),
+
               Icon(Icons.call, color: Colors.black.withOpacity(0.3)),
             ],
           ),
@@ -102,7 +120,7 @@ class ContactItem extends StatelessWidget {
     );
   }
 
-  Widget slideRightBackground() {
+  Widget _slideRightBackground() {
     return Container(
       color: AppColor.greenBackground,
       alignment: Alignment.centerLeft,
@@ -111,21 +129,20 @@ class ContactItem extends StatelessWidget {
     );
   }
 
-  Widget slideLeftBackground() {
+  Widget _slideLeftBackground() {
     return Container(
-      color: AppColor.redBold,
+      color: AppColor.primaryColor,
       padding: const EdgeInsets.all(16.0),
       alignment: Alignment.centerRight,
       child: const Icon(Icons.delete, color: Colors.white),
     );
   }
 
-  String getAbbreviateName(String name) {
+  String _getAbbreviateName(String name) {
     List<String> words = name.split(' ');
     String id = '';
 
-    // Get 2 first character of name
-
+    // Get 2 first character separated by space
     for (int i = 0; i < words.length; i++) {
       if (words[i].isNotEmpty) {
         id += words[i].substring(0, 1).toUpperCase();
